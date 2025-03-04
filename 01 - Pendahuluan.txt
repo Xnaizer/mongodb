@@ -1,0 +1,433 @@
+MongoDB adalah database NoSQL yang berbasis dokumen dan menggunakan format JSON-like untuk menyimpan data. Berbeda dengan database relasional seperti MySQL atau PostgreSQL, MongoDB tidak menggunakan tabel dan kolom, melainkan menyimpan data dalam bentuk koleksi (collection) dan dokumen (document).
+
+🔹 Ciri Khas MongoDB:
+Struktur Dokumen 📝
+Data disimpan dalam format JSON-like (BSON - Binary JSON), sehingga lebih fleksibel dibandingkan tabel dalam database relasional.
+
+Skalabilitas Tinggi 📈
+MongoDB mendukung horizontal scaling dengan sharding, memungkinkan database untuk menangani beban kerja yang besar.
+
+Schema-less 🔄
+Tidak memerlukan skema tetap seperti database relasional. Setiap dokumen dalam koleksi bisa memiliki struktur berbeda.
+
+Performa Tinggi ⚡
+Operasi baca dan tulis lebih cepat karena tidak ada join yang kompleks seperti di database relasional.
+
+Indexing yang Kuat 🔍
+MongoDB memiliki indeks yang dapat mempercepat pencarian data.
+
+Aggregation Framework 📊
+Mirip dengan fitur GROUP BY di SQL, tetapi lebih fleksibel.
+
+🔹 Contoh Data dalam MongoDB
+MongoDB menyimpan data dalam dokumen seperti ini:
+
+
+{
+  "_id": ObjectId("603d1f45c25c146d53f5b8e7"),
+  "nama": "John Doe",
+  "usia": 25,
+  "hobi": ["membaca", "coding", "berenang"]
+}
+Dokumen di atas berisi informasi pengguna dengan atribut seperti nama, usia, dan hobi.
+
+🔹 Perbandingan MongoDB vs MySQL
+Fitur	MongoDB (NoSQL)	MySQL (SQL)
+Struktur Data	JSON-like (BSON)	Tabel & Kolom
+Skema Data	Fleksibel (Schema-less)	Tetap (Schema-based)
+Skalabilitas	Mudah di-scale horizontal	Umumnya di-scale vertikal
+Transaksi	Kurang kuat dibanding SQL	Mendukung transaksi kompleks
+Performa	Cepat untuk data besar	Lebih stabil untuk transaksi
+MongoDB cocok digunakan untuk aplikasi modern seperti web apps, mobile apps, IoT, dan Big Data, di mana fleksibilitas dan skalabilitas lebih diutamakan dibanding struktur relasional yang kaku.
+
+
+🔴 Kekurangan MongoDB
+Tidak Cocok untuk Transaksi Kompleks ⚠️
+
+MongoDB tidak mendukung transaksi multi-dokumen sebaik MySQL atau PostgreSQL.
+Meskipun sejak versi 4.0 sudah mendukung transaksi ACID, performanya masih kalah dibandingkan database relasional.
+Konsumsi Memori Lebih Besar 🛑
+
+Karena MongoDB menyimpan data dalam format BSON (Binary JSON), ukuran dokumen lebih besar daripada data di MySQL.
+Indeks juga menggunakan lebih banyak RAM dibandingkan database SQL.
+Kurang Optimal untuk Query yang Kompleks 🔍
+
+Tidak memiliki fitur JOIN seperti di SQL, jadi harus menggunakan embedding atau referencing untuk menghubungkan data, yang bisa membuat query lebih sulit dan kurang efisien.
+Keamanan Default yang Kurang 🔓
+
+Secara default, MongoDB tidak memiliki autentikasi yang ketat, sehingga jika tidak dikonfigurasi dengan benar, data bisa diakses secara tidak aman.
+Skema yang Fleksibel Bisa Menjadi Masalah ⚖️
+
+Walaupun schema-less memberikan fleksibilitas, tapi bisa menjadi tidak terstruktur jika tidak dikelola dengan baik.
+Data yang tidak konsisten dapat menyulitkan dalam analisis dan pengolahan.
+Tidak Efisien untuk Data yang Sangat Terstruktur 📊
+
+Jika aplikasi memerlukan hubungan antar data yang kompleks, seperti aplikasi keuangan atau sistem ERP, MongoDB kurang cocok dibandingkan MySQL/PostgreSQL.
+Performa Menurun pada Data yang Sangat Besar (Tanpa Sharding) 🐢
+
+Jika tidak dioptimalkan dengan sharding, MongoDB bisa mengalami penurunan performa ketika menangani jutaan atau miliaran data.
+❓ Kapan MongoDB Tidak Direkomendasikan?
+✅ Gunakan MongoDB jika:
+✔️ Data tidak memiliki struktur tetap.
+✔️ Aplikasi membutuhkan skala besar dan kecepatan tinggi.
+✔️ Butuh fleksibilitas dalam menyimpan berbagai jenis data (misalnya IoT, social media, big data).
+
+❌ Jangan gunakan MongoDB jika:
+❌ Aplikasi membutuhkan transaksi multi-dokumen yang kompleks (misalnya aplikasi perbankan).
+❌ Data memiliki struktur yang tetap dan saling berkaitan erat (misalnya sistem keuangan atau inventory yang butuh integritas data tinggi).
+❌ Query yang sering dilakukan sangat kompleks dan membutuhkan banyak relasi seperti di SQL.
+
+
+
+
+SQL dan NoSQL adalah dua jenis database yang memiliki perbedaan mendasar dalam cara menyimpan, mengelola, dan mengakses data. Berikut penjelasan perbedaannya:
+
+🔹 Perbedaan SQL vs NoSQL
+Aspek	SQL (Relasional Database)	NoSQL (Non-Relasional Database)
+Struktur Data	Tabel dengan baris & kolom (fixed schema) 📊	Dokumen, key-value, wide-column, atau graph (flexible schema) 📂
+Skema (Schema)	Kaku (harus didefinisikan sebelum digunakan)	Fleksibel (bisa menyimpan berbagai format data)
+Bahasa Query	Structured Query Language (SQL) seperti SELECT, JOIN	Beragam (MongoDB: JSON-like queries, Firebase: NoSQL-style, Redis: key-value)
+Skalabilitas	Vertikal (meningkatkan spesifikasi server)	Horizontal (bisa menambahkan banyak server)
+Transaksi (ACID)	Mendukung ACID (Atomicity, Consistency, Isolation, Durability) ✅	Kurang mendukung ACID (tergantung jenis NoSQL) ❌
+Kecepatan	Lebih lambat untuk operasi kompleks	Lebih cepat untuk data yang besar & tidak terstruktur
+Cocok untuk	Data terstruktur & transaksi keuangan (perbankan, e-commerce, ERP)	Data fleksibel, real-time, & big data (media sosial, IoT, blockchain, analitik)
+🔹 Contoh Database SQL & NoSQL
+Tipe Database	Contoh
+SQL (Relasional)	MySQL, PostgreSQL, MariaDB, SQLite, Microsoft SQL Server
+NoSQL - Dokumen	MongoDB, CouchDB, Firebase Firestore
+NoSQL - Key-Value	Redis, DynamoDB
+NoSQL - Wide-Column	Cassandra, HBase
+NoSQL - Graph	Neo4j, ArangoDB
+🔹 Kapan Menggunakan SQL vs NoSQL?
+✅ Gunakan SQL jika:
+✔️ Data memiliki struktur yang tetap
+✔️ Butuh transaksi yang kuat (ACID compliance)
+✔️ Aplikasi perbankan, keuangan, atau sistem akuntansi
+
+✅ Gunakan NoSQL jika:
+✔️ Data besar dan tidak terstruktur
+✔️ Butuh skalabilitas tinggi (horizontal scaling)
+✔️ Aplikasi media sosial, big data, blockchain, atau IoT
+
+🔹 Contoh Perbedaan SQL vs NoSQL dalam Query
+📌 Di SQL (MySQL/PostgreSQL):
+
+
+SELECT * FROM users WHERE age > 18;
+📌 Di NoSQL (MongoDB):
+
+
+db.users.find({ "age": { "$gt": 18 } })
+🔹 Kesimpulan
+SQL cocok untuk data terstruktur & transaksi yang butuh konsistensi tinggi
+NoSQL lebih fleksibel & cocok untuk data skala besar yang tidak memiliki format tetap
+
+
+
+
+
+
+
+
+
+
+
+C:\>mongod --dbpath="c:\yourPath\db", jgn di close cmdnya, buat cmd baru karna jika diclose app akan berhenti
+
+test> "hellow Worldo".toUpperCase()
+HELLOW WORLDO
+test>
+
+--- melihat dbs : show dbs
+--- membuat dbs : use "nama_database"
+--- mengisi data : nama_database> db.products.insertOne({name: " Produk A ", price: 1000, tags: ["Hape","Mobile"]
+})
+--- melihat isi data products : nama_database> db.products.find()
+[
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: ' Produk A ',
+    price: 1000,
+    tags: [ 'Hape', 'Mobile' ]
+  }
+]
+--- insertMany : nama_database> db.products.insertMany([{name: " Produk A ", price: 1000, tags: ["Hape","Mobile"]
+... }, {name: " Produk A ", price: 1000, tags: ["Hape","Mobile"]}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('5456fgsads43sfda65basda5677fgji'),
+    '1': ObjectId('5456fgsads43sfda65basda5677fgji'),
+    '2': ObjectId('5456fgsads43sfda65basda5677fgji')
+  }
+}
+nama_database> db.products.find()
+[
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: ' Produk A ',
+    price: 1000,
+    tags: [ 'Hape', 'Mobile' ]
+  },
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: ' Produk A ',
+    price: 1000,
+    tags: [ 'Hape', 'Mobile' ]
+  },
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: ' Produk A ',
+    price: 1000,
+    tags: [ 'Hape', 'Mobile' ]
+  },
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: ' Produk A ',
+    price: 1000,
+    tags: [ 'Hape', 'Mobile' ]
+  }
+]
+
+
+Method
+Description
+db.collection.insertOne()
+
+Inserts a single document into a collection.
+
+db.collection.insertMany()
+
+Inserts multiple documents into a collection.
+
+
+Additional Methods for Inserts
+The following methods can also add new documents to a collection, including collections hosted in MongoDB Atlas:
+
+db.collection.updateOne() when used with the upsert: true option.
+
+db.collection.updateMany() when used with the upsert: true option.
+
+db.collection.findAndModify() when used with the upsert: true option.
+
+db.collection.findOneAndUpdate() when used with the upsert: true option.
+
+db.collection.findOneAndReplace() when used with the upsert: true option.
+
+db.collection.bulkWrite().
+
+See the individual reference pages for the methods for more information and examples.
+
+
+
+
+
+
+nama_database> db.products.find({color: 'hitam'})
+[
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: 'Topi Baseball',
+    brand: 'New Era',
+    price: 350000,
+    color: 'hitam',
+    size: [ 'one size' ],
+    description: 'Topi baseball dengan desain yang simpel dan elegan, terbuat dari bahan katun berkualitas tinggi.',
+    condition: 'baru',
+    stock: 18,
+    availability: { online: true, offline: true }
+  },
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: 'Jas',
+    brand: 'Hugo Boss',
+    price: 4500000,
+    color: 'hitam',
+    size: [ '40R', '42R', '44R' ],
+    description: 'Jas dengan desain yang elegan dan klasik, terbuat dari bahan wol yang nyaman dan berkualitas tinggi.',
+    condition: 'baru',
+    stock: 3,
+    availability: { online: false, offline: true }
+  }
+]
+
+
+
+nama_database> db.products.find({color: { $in : ['hitam', 'coklat'] } } )
+[
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: 'Topi Baseball',
+    brand: 'New Era',
+    price: 350000,
+    color: 'hitam',
+    size: [ 'one size' ],
+    description: 'Topi baseball dengan desain yang simpel dan elegan, terbuat dari bahan katun berkualitas tinggi.',
+    condition: 'baru',
+    stock: 18,
+    availability: { online: true, offline: true }
+  },
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: 'Jas',
+    brand: 'Hugo Boss',
+    price: 4500000,
+    color: 'hitam',
+    size: [ '40R', '42R', '44R' ],
+    description: 'Jas dengan desain yang elegan dan klasik, terbuat dari bahan wol yang nyaman dan berkualitas tinggi.',
+    condition: 'baru',
+    stock: 3,
+    availability: { online: false, offline: true }
+  },
+  {
+    _id: ObjectId('5456fgsads43sfda65basda5677fgji'),
+    name: 'Sepatu Loafers',
+    brand: 'Gucci',
+    price: 8000000,
+    color: 'coklat',
+    size: [ '40', '41', '42', '43', '44' ],
+    description: 'Sepatu loafers dengan desain yang mewah dan elegan, terbuat dari bahan kulit yang berkualitas tinggi.',
+    condition: 'baru',
+    stock: 6,
+    availability: { online: true, offline: false }
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+1️⃣ Mencari Produk Berdasarkan Harga
+
+🔹 Produk dengan harga lebih dari 1 juta:
+db.products.find({ price: { $gt: 1000000 } })
+
+
+🔹 Produk dengan harga kurang dari atau sama dengan 750 ribu:
+db.products.find({ price: { $lte: 750000 } })
+
+
+🔹 Produk dengan harga antara 500 ribu sampai 2 juta:
+db.products.find({ price: { $gte: 500000, $lte: 2000000 } })
+
+
+
+2️⃣ Mencari Produk Berdasarkan Stok
+
+🔹 Produk dengan stok lebih dari 10:
+db.products.find({ stock: { $gt: 10 } })
+
+🔹 Produk dengan stok kurang dari 5:
+db.products.find({ stock: { $lt: 5 } })
+
+
+
+3️⃣ Mencari Produk Berdasarkan availability (tersedia online/offline)
+
+🔹 Produk yang bisa dibeli online:
+db.products.find({ "availability.online": true })
+
+🔹 Produk yang hanya bisa dibeli offline:
+db.products.find({ "availability.online": false, "availability.offline": true })
+
+
+
+4️⃣ Mencari Produk Berdasarkan Merek (brand)
+
+🔹 Produk dari merek "Nike":
+db.products.find({ brand: "Nike" })
+
+🔹 Produk dari beberapa merek (contoh: Nike, Gucci, dan Levi's):
+db.products.find({ brand: { $in: ["Nike", "Gucci", "Levi's"] } })
+
+🔹 Produk yang bukan dari merek "Nike":
+db.products.find({ brand: { $ne: "Nike" } })
+
+
+
+5️⃣ Mencari Produk Berdasarkan Warna (color)
+
+🔹 Produk dengan warna "biru muda" atau "merah muda":
+db.products.find({ color: { $in: ["biru muda", "merah muda"] } })
+
+🔹 Produk yang bukan berwarna hitam:
+db.products.find({ color: { $ne: "hitam" } })
+
+
+
+6️⃣ Mencari Produk Berdasarkan Ukuran (size)
+
+🔹 Produk yang memiliki ukuran "M":
+db.products.find({ size: "M" })
+
+🔹 Produk yang memiliki ukuran "one size":
+db.products.find({ size: "one size" })
+
+🔹 Produk dengan ukuran lebih dari satu (memiliki array size):
+db.products.find({ size: { $size: 2 } }) // Produk dengan tepat 2 ukuran dalam array
+
+
+
+7️⃣ Mencari Produk Berdasarkan Kondisi (condition)
+
+🔹 Produk yang dalam kondisi baru:
+db.products.find({ condition: "baru" })
+
+🔹 Produk yang bukan kondisi baru:
+db.products.find({ condition: { $ne: "baru" } })
+
+
+
+8️⃣ Mencari Produk Berdasarkan Kata dalam description
+
+🔹 Produk yang deskripsinya mengandung kata "sporty"
+db.products.find({ description: /sporty/i })
+
+🔹 Produk yang deskripsinya mengandung kata "elegan" dan "klasik"
+db.products.find({ description: { $regex: "elegan.*klasik", $options: "i" } })
+
+
+
+1️⃣ Operator Perbandingan
+-------------------------------------------------------------------------------------------------------------
+| Operator | Arti                          | Contoh                            | Hasil                      |
+|----------|-------------------------------|-----------------------------------|----------------------------|
+| $gt      | Lebih dari                    | { price: { $gt: 1000000 } }       | Harga lebih dari 1 juta    |
+| $gte     | Lebih dari atau sama dengan   | { price: { $gte: 1000000 } }      | Harga ≥ 1 juta             |
+| $lt      | Kurang dari                   | { price: { $lt: 1000000 } }       | Harga kurang dari 1 juta   |
+| $lte     | Kurang dari atau sama dengan  | { price: { $lte: 1000000 } }      | Harga ≤ 1 juta             |
+-------------------------------------------------------------------------------------------------------------
+
+2️⃣ Operator Keanggotaan
+-----------------------------------------------------------------------------------------------------------------------------------
+| Operator | Arti                              | Contoh                                      | Hasil                              |
+|----------|-----------------------------------|---------------------------------------------|------------------------------------|
+| $in      | Mencari nilai dalam sebuah array | { color: { $in: ['hitam', 'coklat'] } }      | Produk dengan warna hitam/coklat   |
+| $nin     | Mencari nilai tidak ada dalam array | { color: { $nin: ['hitam', 'coklat'] } }  | Produk bukan warna hitam/coklat    |
+-----------------------------------------------------------------------------------------------------------------------------------
+
+3️⃣ Operator Logika
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Operator | Arti                       | Contoh                                                      | Hasil                                    |
+|----------|----------------------------|-------------------------------------------------------------|------------------------------------------|
+| $and     | Kedua kondisi harus benar  | { $and: [{ color: 'hitam' }, { stock: { $gt: 10 } }] }      | Produk warna hitam & stok > 10           |
+| $or      | Salah satu kondisi benar   | { $or: [{ color: 'hitam' }, { price: { $lt: 500000 } }] }   | Produk warna hitam atau harga < 500 ribu |
+| $not     | Negasi dari kondisi        | { price: { $not: { $gte: 1000000 } } }                      | Produk dengan harga kurang dari 1 juta   |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+4️⃣ Operator Pola & Regex
+----------------------------------------------------------------------------------------------------------------------------------
+| Operator  | Arti                                 | Contoh                               | Hasil                                |
+|-----------|--------------------------------------|--------------------------------------|--------------------------------------|
+| $regex    | Mencari teks dengan pola tertentu    | { name: { $regex: '^S' } }           | Produk dengan nama diawali huruf "S" |
+| $exists   | Memeriksa apakah field ada/tidak     | { discount: { $exists: true } }      | Produk yang memiliki field discount  |
+----------------------------------------------------------------------------------------------------------------------------------
+
