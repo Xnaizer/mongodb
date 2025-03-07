@@ -1,0 +1,104 @@
+Mongoose: Pengertian dan Kegunaan
+Mongoose adalah Object Data Modeling (ODM) untuk MongoDB dalam Node.js. Dengan Mongoose, kita bisa bekerja dengan database MongoDB menggunakan model berbasis skema, yang membuat pengelolaan data lebih terstruktur dan lebih aman.
+
+Mengapa Menggunakan Mongoose?
+Mongoose menawarkan beberapa fitur yang membuat interaksi dengan MongoDB lebih mudah dan terorganisir, seperti:
+
+✅ Schema-based model → Data lebih terstruktur dengan skema yang jelas.
+✅ Validasi otomatis → Memastikan data yang dimasukkan sesuai dengan aturan.
+✅ Query yang lebih mudah dibaca → Syntax lebih ringkas dibandingkan native MongoDB driver.
+✅ Middleware (Hooks) → Bisa menjalankan kode sebelum atau sesudah operasi database (misalnya sebelum save atau setelah find).
+✅ Relasi antar dokumen → Bisa membuat referensi antar koleksi (seperti di SQL).
+
+Cara Menggunakan Mongoose
+1. Instalasi
+Jika belum terinstal, jalankan perintah ini di terminal:
+
+sh
+Copy
+Edit
+npm install mongoose
+2. Koneksi ke MongoDB
+Buat file app.js, lalu tulis kode berikut:
+
+
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB Connected'))
+.catch(err => console.log(err));
+🔹 mongoose.connect() → Digunakan untuk menghubungkan ke database.
+🔹 Jika koneksi berhasil, akan muncul pesan "MongoDB Connected".
+
+3. Membuat Schema dan Model
+Dalam Mongoose, kita menggunakan schema untuk menentukan struktur data yang disimpan di MongoDB.
+
+
+const { Schema, model } = require('mongoose');
+
+// Buat schema untuk produk
+const productSchema = new Schema({
+  name: String,
+  price: Number,
+  stock: Number,
+  tags: [String]
+});
+
+// Buat model berdasarkan schema
+const Product = model('Product', productSchema);
+🔹 Schema → Menentukan struktur data.
+🔹 Model → Representasi dari koleksi di MongoDB.
+
+4. Menyimpan Data ke Database
+Sekarang, kita bisa membuat dan menyimpan data ke MongoDB:
+
+
+const newProduct = new Product({
+  name: 'Laptop Gaming',
+  price: 15000000,
+  stock: 5,
+  tags: ['elektronik', 'laptop']
+});
+
+newProduct.save()
+  .then(() => console.log('Produk berhasil disimpan'))
+  .catch(err => console.log(err));
+🔹 new Product({...}) → Membuat instance produk baru.
+🔹 .save() → Menyimpan ke database.
+
+5. Mengambil Data dari Database
+Kita bisa mengambil data dengan berbagai cara, misalnya:
+
+
+// Ambil semua produk
+Product.find().then(products => console.log(products));
+
+// Ambil produk tertentu berdasarkan nama
+Product.findOne({ name: 'Laptop Gaming' }).then(product => console.log(product));
+6. Mengupdate Data
+Misalnya, kita ingin mengupdate stok produk:
+
+
+Product.updateOne({ name: 'Laptop Gaming' }, { stock: 10 })
+  .then(() => console.log('Stok diperbarui'))
+  .catch(err => console.log(err));
+7. Menghapus Data
+Untuk menghapus produk berdasarkan nama:
+
+
+Product.deleteOne({ name: 'Laptop Gaming' })
+  .then(() => console.log('Produk dihapus'))
+  .catch(err => console.log(err));
+Kesimpulan
+Mongoose adalah ODM untuk MongoDB di Node.js yang membuat pengelolaan database lebih mudah dengan skema, validasi, middleware, dan query yang lebih simpel.
+
+🚀 Kelebihan Mongoose dibanding MongoDB Native Driver:
+
+Struktur Data yang Lebih Terorganisir
+Validasi Otomatis
+Query yang Lebih Sederhana
+Middleware (Hooks) untuk Manipulasi Data
+Dukungan Relasi Antar Koleksi

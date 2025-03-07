@@ -431,3 +431,14 @@ db.products.find({ description: { $regex: "elegan.*klasik", $options: "i" } })
 | $exists   | Memeriksa apakah field ada/tidak     | { discount: { $exists: true } }      | Produk yang memiliki field discount  |
 ----------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+nama_database> db.products.updateOne({name: 'Sepatu Loafers'},{ $set : {name: 'nyoba update'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
