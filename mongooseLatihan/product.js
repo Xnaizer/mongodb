@@ -1,7 +1,7 @@
 // Koneksi ke MongoDB
 
 
-const e = require('express');
+
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/movie_db').then(() => console.log('Connected to MongoDB')).catch(err => console.log(err));
 
@@ -51,6 +51,19 @@ productSchema.methods.outStock = function() {
     return this.save();
 }
 
+productSchema.statics.closeStore = function() {
+    return this.updateMany({}, {
+        stock: 0,
+        condition: 'bekas',
+        availability: {
+            online: false,
+            offline: false
+        }
+    })
+}
+
+
+
 const Product = mongoose.model('Product', productSchema);
 
 const changeStock = async (id) => {
@@ -63,27 +76,30 @@ const changeStock = async (id) => {
 
 changeStock('67cabf2fec40829e5c60a105');
 
-// const tshirt = new Product({
-//     name: 'T-Shirt',
-//     price: 10000,
-//     stock: 10,
-//     tags: ['fashion', 'summer']
-// });
+const tshirt = new Product({
+    name: 'T-Shirt',
+    price: 10000,
+    stock: 10,
+    tags: ['fashion', 'summer']
+});
 
-// tshirt.save().then(() => console.log('Product saved')).catch(err => console.log(err));
+tshirt.save().then(() => console.log('Product saved')).catch(err => console.log(err));
 
 
-// Product.findOneAndUpdate({ name: 'T-Shirt'}, {
-//     "name": "Kemeja Flanel",
-//     "price": 50000,
-//     "stock": 10,
-//     "tags": ["fashion", "summer"],
-//     "size": ["S", "M", "L"],
-//     "description": "Kemeja flanel dengan desain yang elegan dan klasik, terbuat dari bahan katun berkualitas tinggi.",
-//     "condition": "baru",
-//     "stock": 10,
-//     "availability": {
-//         "online": true,
-//         "offline": true
-//     }
-// },{new: true, runValidators: true}).then(result => console.log(result)).catch(err => console.log(err.errors.stock.properties.message)); 
+Product.findOneAndUpdate({ name: 'T-Shirt'}, {
+    "name": "Kemeja Flanel",
+    "price": 50000,
+    "stock": 10,
+    "tags": ["fashion", "summer"],
+    "size": ["S", "M", "L"],
+    "description": "Kemeja flanel dengan desain yang elegan dan klasik, terbuat dari bahan katun berkualitas tinggi.",
+    "condition": "baru",
+    "stock": 10,
+    "availability": {
+        "online": true,
+        "offline": true
+    }
+},{new: true, runValidators: true}).then(result => console.log(result)).catch(err => console.log(err.errors.stock.properties.message)); 
+
+
+Product.closeStore().then(() => console.log('Store closed')).catch(err => console.log(err));
